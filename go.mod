@@ -1,4 +1,4 @@
-module github.com/Yamahitsuji/datasets
+module github.com/Yamahitsuji/web-scraper
 
 go 1.16
 
