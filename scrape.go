@@ -4,12 +4,13 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"fmt"
-	"github.com/PuerkitoBio/goquery"
-	"golang.org/x/xerrors"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
+
+	"github.com/PuerkitoBio/goquery"
+	"golang.org/x/xerrors"
 )
 
 const outDir = "./default"
