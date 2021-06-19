@@ -9,8 +9,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/PuerkitoBio/goquery"
 	"golang.org/x/xerrors"
+
+	"github.com/PuerkitoBio/goquery"
 )
 
 const outDir = "./default"

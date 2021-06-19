@@ -1,0 +1,19 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:5.7
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
+    volumes:
+      - .local/mysql5.7:/var/lib/mysql
+  dynamodb:
+    image: amazon/dynamodb-local
+    hostname: dynamodb-local
+    container_name: dynamodb-local
+    ports:
+      - "8042:8000"
+    volumes:
+      - .local/dynamodb:/var/lib/dynamodb
