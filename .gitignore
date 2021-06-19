@@ -1,2 +1,12 @@
 .idea
 default
+
+.DS_Store
+
+.local
+out
+
+.env
+.envrc
+
+vendor
