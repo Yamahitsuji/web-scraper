@@ -29,7 +29,7 @@ func (a *ArticleRecord) TableName() string {
 }
 
 func NewDB() (*gorm.DB, error) {
-	dsn := "root:@tcp(127.0.0.1:3306)/wikipedia?charset=utf8mb4&parseTime=true"
+	dsn := "root:@tcp(127.0.0.1:3306)/wikipedia?charset=utf8&parseTime=true"
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
