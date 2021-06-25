@@ -14,14 +14,16 @@ import (
 )
 
 type ArticleRecord struct {
-	ID        int `gorm:"primaryKey"`
-	Title     string
-	URL       string
-	Latitude  string
-	Longitude string
-	Details   string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ID         int `gorm:"primaryKey"`
+	Title      string
+	URL        string
+	Latitude   float64
+	Longitude  float64
+	Read       string
+	Text       string
+	DetailJson string
+	CreatedAt  time.Time
+	UpdatedAt  time.Time
 }
 
 func (a *ArticleRecord) TableName() string {
@@ -33,7 +35,7 @@ func NewDB() (*gorm.DB, error) {
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		return nil, err
+		return nil, xerrors.Errorf("[ERROR] :%w", err)
 	}
 	l := logger.New(log.New(os.Stdout, "\r\n", log.LstdFlags),
 		logger.Config{
@@ -59,11 +61,13 @@ func CreateArticle(article *Article) error {
 		return xerrors.Errorf("[ERROR] :%w", err)
 	}
 	r := &ArticleRecord{
-		Title:     article.Title,
-		URL:       article.URL,
-		Latitude:  article.Latitude,
-		Longitude: article.Longitude,
-		Details:   string(bytes),
+		Title:      article.Title,
+		URL:        article.URL,
+		Latitude:   article.Latitude,
+		Longitude:  article.Longitude,
+		Read:       article.Read,
+		Text:       article.Text,
+		DetailJson: string(bytes),
 	}
 
 	db, err := NewDB()
@@ -90,10 +94,10 @@ func GetFirstArticleByTitle(title string) (*Article, error) {
 		return nil, xerrors.Errorf("[ERROR] :%w", tx.Error)
 	}
 	detail := make(map[string]string)
-	if err := json.Unmarshal([]byte(r.Details), &detail); err != nil {
+	if err := json.Unmarshal([]byte(r.DetailJson), &detail); err != nil {
 		return nil, err
 	}
-	article := NewArticle(r.Title, r.URL, r.Latitude, r.Longitude, detail)
+	article := NewArticle(r.Title, r.URL, r.Read, r.Text, r.Latitude, r.Longitude, detail)
 	return article, nil
 }
 

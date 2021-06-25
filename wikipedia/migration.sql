@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS `wikipedia`
+DROP DATABASE IF EXISTS `wikipedia`;
 CREATE DATABASE `wikipedia` DEFAULT COLLATE utf8mb4_general_ci;
 USE `wikipedia`;
 
@@ -7,9 +7,11 @@ CREATE TABLE IF NOT EXISTS `article` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `title` varchar(190) NOT NULL,
     `url` varchar(190) NOT NULL,
-    `latitude` varchar(190) NOT NULL,
-    `longitude` varchar(190) NOT NULL,
-    `details` mediumtext NOT NULL,
+    `latitude` float NOT NULL DEFAULT 0,
+    `longitude` float NOT NULL DEFAULT 0,
+    `read` text,
+    `text` mediumtext NOT NULL,
+    `detail_json` mediumtext NOT NULL,
     `created_at` DATETIME,
     `updated_at` DATETIME,
     PRIMARY KEY (`id`),
